@@ -1,0 +1,8 @@
+// A sample TSL file
+// All files in the Model folder will be copied to the Client/Server on build. This way we can mantain one place
+// to manage all TSL definitions
+
+cell struct Person {
+  int Age;
+  string Name;
+}

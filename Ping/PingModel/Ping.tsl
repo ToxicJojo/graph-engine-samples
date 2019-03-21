@@ -1,0 +1,28 @@
+struct PingMessage {
+  string Message;
+}
+
+protocol SynPing {
+  Type: Syn;
+  Request: PingMessage;
+  Response: void;
+}
+
+protocol SynEchoPing {
+  Type: Syn;
+  Request: PingMessage;
+  Response: PingMessage;
+}
+
+protocol AsynPing {
+  Type: Asyn;
+  Request: PingMessage;
+  Response: void;
+}
+
+
+server PingServer {
+  protocol SynPing;
+  protocol SynEchoPing;
+  protocol AsynPing;
+}

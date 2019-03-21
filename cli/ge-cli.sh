@@ -96,4 +96,8 @@ cd ..
 
 echo "Finished creating ${modelName}"
 
-cd ..
+echo "Creating Solution File"
+
+dotnet new sln
+dotnet sln add $clientName
+dotnet sln add $serverName

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CopyTSLFiles"
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -10,26 +10,21 @@
     <PackageReference Include="GraphEngine.Core" Version="$GRAPH_ENGINE_VERSION" />
   </ItemGroup>
   
-  <!-- Delete potentially old .tsl files before our build -->
-  <Target Name="ClearTSLFiles" AfterTargets="BeforeBuild">
-    <RemoveDir Directories="tsl/" />
-  </Target>
-
   <!-- Define which files to copy  -->
   <ItemGroup>
-      <TSLFiles Include="../$MODEL_NAME/**/*.tsl"/>
+      <TSLFiles Include="../FriendsModel/**/*.tsl"/>
   </ItemGroup>
 
-  <!-- Copy all .tsl files from the model project into a /tsl folder -->
-  <Target Name="CopyTSLFiles" AfterTargets="ClearTSLFiles">
+  <Target Name="CopyTSLFiles">
+    <!-- Delete potentially old .tsl files before our build -->
+    <RemoveDir Directories="tsl/" />
+    <!-- Copy all .tsl files from the model project into a /tsl folder -->
     <Copy SourceFiles="@(TSLFiles)" DestinationFolder="tsl/" />
   </Target>
 
   <ItemGroup>
     <!-- Generate code from the .tsl files -->
     <TslCodegen Include="**/*.tsl" />
-    <!-- Copy the configuration file to the output dir so GraphEngine can read it -->
-    <Content Include="trinity.xml" CopyToOutputDirectory="Always" />
-  </ItemGroup>
+  </ItemGroup
 
 </Project>

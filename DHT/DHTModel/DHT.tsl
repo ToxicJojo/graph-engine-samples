@@ -1,0 +1,39 @@
+struct KVPair {
+  string Key;
+  string Value;
+}
+
+cell struct BucketCell {
+  List<KVPair> KVList;
+}
+
+struct SetMessage {
+  string Key;
+  string Value;
+}
+
+protocol Set {
+  Type: Syn;
+  Request: SetMessage;
+  Response: void;
+}
+
+struct GetMessage {
+  string Key;
+}
+
+struct GetResponse {
+  bool IsFound;
+  string Value;
+}
+
+protocol Get {
+  Type: Syn;
+  Request: GetMessage;
+  Response: GetResponse;
+}
+
+server DHTServer {
+  protocol Set;
+  protocol Get;
+}

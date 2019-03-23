@@ -13,7 +13,7 @@
   
   <!-- Define which files to copy  -->
   <ItemGroup>
-      <TSLFiles Include="../FriendsModel/**/*.tsl"/>
+      <TSLFiles Include="../DHTModel/**/*.tsl"/>
   </ItemGroup>
 
   <Target Name="CopyTSLFiles">
@@ -26,6 +26,8 @@
   <ItemGroup>
     <!-- Generate code from the .tsl files -->
     <TslCodegen Include="**/*.tsl" />
+    <!-- Copy the configuration file to the output dir so GraphEngine can read it -->
+    <Content Include="trinity.xml" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

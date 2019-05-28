@@ -1,0 +1,32 @@
+cell struct SSSPCell {
+  int distance;
+  long parent;
+  List<long> neighbors;
+}
+
+struct StartSSSPMessage {
+  long root;
+}
+
+struct DistanceUpdatingMessage {
+  long senderId;
+  int distance;
+  List<long> recipients;
+}
+
+protocol StartSSSP {
+  type: Asyn;
+  Request: StartSSSPMessage;
+  Response: void;
+}
+
+protocol DistanceUpdating {
+  Type: Asyn;
+  Request: DistanceUpdatingMessage;
+  Response: void;
+}
+
+server SSSPServer {
+  protocol StartSSSP;
+  protocol DistanceUpdating;
+}

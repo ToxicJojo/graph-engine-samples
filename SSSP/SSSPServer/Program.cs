@@ -17,7 +17,9 @@ namespace SSSPServer
           SSSPServerImpl server = new SSSPServerImpl();
           server.Start();
 
-          using (var reader = new StreamReader("p2p-Gnutella31.txt")) {
+          //using (var reader = new StreamReader("p2p-Gnutella31.txt")) {
+          //using (var reader = new StreamReader("com-youtube.ungraph.txt")) {
+          using (var reader = new StreamReader("com-orkut.ungraph.txt")) {
             string line;
             string[] fields;
             long currentNode = 0;
@@ -41,7 +43,7 @@ namespace SSSPServer
                 }
               } catch (Exception e) {
                 Console.WriteLine(e.ToString());
-                break;
+                //break;
               }
             }
           }

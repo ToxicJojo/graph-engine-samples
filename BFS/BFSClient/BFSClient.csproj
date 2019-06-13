@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk" InitialTargets="CopyTSLFiles">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <!-- Import the GraphEngine packages -->
+  <ItemGroup>
+    <PackageReference Include="GraphEngine.Core" Version="2.0.9842" />
+    <PackageReference Include="GraphEngine.Client" Version="2.0.9842" />
+  </ItemGroup>
+  
+  <!-- Define which files to copy  -->
+  <ItemGroup>
+      <TSLFiles Include="../BFSModel/**/*.tsl"/>
+  </ItemGroup>
+
+  <Target Name="CopyTSLFiles">
+    <!-- Delete potentially old .tsl files before our build -->
+    <RemoveDir Directories="tsl/" />
+    <!-- Copy all .tsl files from the model project into a /tsl folder -->
+    <Copy SourceFiles="@(TSLFiles)" DestinationFolder="tsl/" />
+  </Target>
+
+  <ItemGroup>
+    <!-- Generate code from the .tsl files -->
+    <TslCodegen Include="**/*.tsl" />
+    <!-- Copy the configuration file to the output dir so GraphEngine can read it -->
+    <Content Include="trinity.xml" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
+</Project>

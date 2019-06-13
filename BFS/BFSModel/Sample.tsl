@@ -1,0 +1,32 @@
+cell struct BFSCell {
+  long parent;
+  int level;
+  List<long> neighbors;
+}
+
+struct StartBFSMessage {
+  long root;
+}
+
+struct BFSUpdateMessage {
+  long senderId;
+  int level;
+  List<long> recipients;
+}
+
+protocol StartBFS {
+  type: Asyn;
+  Request: StartBFSMessage;
+  Response: void;
+}
+
+protocol BFSUpdate {
+  Type: Asyn;
+  Request: BFSUpdateMessage;
+  Response: void;
+}
+
+server BFSServer {
+  protocol StartBFS;
+  protocol BFSUpdate;
+}

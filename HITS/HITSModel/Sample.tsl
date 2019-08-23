@@ -1,0 +1,160 @@
+// A sample TSL file
+// All files in the Model folder will be copied to the Client/Server on build. This way we can mantain one place
+// to manage all TSL definitions
+
+cell Journal {
+  List<long> References;
+  double HubScore;
+  double AuthorityScore;
+}
+
+
+struct CellCountResponse {
+  ulong Count;
+}
+
+protocol GetCellCount {
+  Type: Syn;
+  Request: void;
+  Response: CellCountResponse;
+}
+
+
+struct SetInitialScoresMessage {
+  double initialHubScore;
+  double initialAuthorityScore;
+}
+
+protocol SetInitialScores {
+  Type: Syn;
+  Request: SetInitialScoresMessage;
+  Response: void;
+}
+
+
+protocol PrepareAuthorityUpdate {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+protocol StartAuthorityUpdate {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+
+struct AuthorityUpdateRequest {
+  double AuthorityScore;
+  long Target;
+}
+
+protocol AuthorityUpdate {
+  Type: Syn;
+  Request: AuthorityUpdateRequest;
+  Response: void;
+}
+
+
+struct AuthoritySumResponse {
+  double Sum;
+}
+
+protocol AuthoritySum {
+  Type: Syn;
+  Request: void;
+  Response: AuthoritySumResponse;
+}
+
+struct AuthorityNormalizationRequest {
+  double Sum;
+}
+
+protocol AuthorityNormalization {
+  Type: Syn;
+  Request: AuthorityNormalizationRequest;
+  Response: void;
+}
+
+
+
+protocol PrepareHubUpdate {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+
+protocol StartHubUpdate {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+struct HubSumResponse {
+  double Sum;
+}
+
+protocol HubSum {
+  Type: Syn;
+  Request: void;
+  Response: HubSumResponse;
+}
+
+struct HubNormalizationRequest {
+  double Sum;
+}
+
+protocol HubNormalization {
+  Type: Syn;
+  Request: HubNormalizationRequest;
+  Response: void;
+}
+
+struct AuthorityInfo {
+  long JournalId;
+  double AuthorityScore;
+}
+
+struct TopAuthoritiesResponse {
+  //List<string> Authorities;
+  //long test;
+  List<long> Authorities;
+}
+
+protocol TopAuthorities {
+  Type: Syn;
+  Request: void;
+  Response: TopAuthoritiesResponse;
+}
+
+struct TopHubsResponse {
+  List<long> Hubs;
+}
+
+protocol TopHubs {
+  Type: Syn;
+  Request: void;
+  Response: TopHubsResponse;
+}
+
+
+server HITSServer {
+  protocol GetCellCount;
+  protocol SetInitialScores;
+  // Authority Updates 
+  protocol PrepareAuthorityUpdate;
+  protocol StartAuthorityUpdate;
+  protocol AuthorityUpdate;
+  protocol AuthoritySum;
+  protocol AuthorityNormalization;
+  // Hub Updates
+  protocol PrepareHubUpdate;
+  protocol StartHubUpdate;
+  protocol HubSum;
+  protocol HubNormalization;
+  // Results
+  protocol TopAuthorities;
+  protocol TopHubs;
+}

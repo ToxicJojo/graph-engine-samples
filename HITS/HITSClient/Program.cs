@@ -11,13 +11,18 @@ namespace HITSClient
         {
           // Trinity doesn't load the config file correctly if we don't tell it to.
           TrinityConfig.LoadConfig();
-          TrinityConfig.CurrentRunningMode = RunningMode.Client;
+          TrinityConfig.CurrentRunningMode = RunningMode.Proxy;
+          //TrinityConfig.CurrentRunningMode = RunningMode.Client;
 
+          CoordinatorImpl coordinator = new CoordinatorImpl();
+          coordinator.Start();
+
+          coordinator.RunHITSHandler();
+
+          /*
           ulong cellCount = GetCellCount();
           Console.WriteLine("Journal Count: {0}", cellCount);
 
-          //double initialAuthScore = 1 / Math.Sqrt(cellCount);
-          //double initialHubScore = 1 / Math.Sqrt(cellCount);
           double initialAuthScore = 1;
           double initialHubScore = 1;
 
@@ -45,7 +50,7 @@ namespace HITSClient
             Journal hub = Global.CloudStorage.LoadJournal(hubId);
             Console.WriteLine("ID: {0}, Score: {1}", hub.CellId, hub.HubScore);
           }
-
+        */
 
         }
 

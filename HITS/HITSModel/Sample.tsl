@@ -139,8 +139,8 @@ protocol TopHubs {
   Response: TopHubsResponse;
 }
 
-
 server HITSServer {
+  // Setup
   protocol GetCellCount;
   protocol SetInitialScores;
   // Authority Updates 
@@ -157,4 +157,38 @@ server HITSServer {
   // Results
   protocol TopAuthorities;
   protocol TopHubs;
+
+
+  // Asyn Methods
+  protocol SetInitialScoresAsyn;
 }
+
+
+protocol RunHITS {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+protocol SetInitialScoresAsyn {
+  Type: Asyn;
+  Request: SetInitialScoresMessage;
+  Response: void;
+}
+
+struct PhaseFinishedRequest {
+  string Phase;
+}
+
+protocol PhaseFinished {
+  Type: Asyn;
+  Request: PhaseFinishedRequest;
+  Response: void;
+}
+
+
+proxy Coordinator {
+  protocol RunHITS;
+  protocol PhaseFinished;
+}
+

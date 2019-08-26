@@ -20,7 +20,17 @@ namespace HITSServer {
         journal.AuthorityScore = request.initialAuthorityScore;
       }
     }
-    
+
+    public override void SetInitialScoresAsynHandler(SetInitialScoresMessageReader request) {
+      foreach(var journal in Global.LocalStorage.Journal_Accessor_Selector()) {
+        journal.HubScore = request.initialHubScore;
+        journal.AuthorityScore = request.initialAuthorityScore;
+      } 
+
+      
+      PhaseFinishedRequestWriter msg = new PhaseFinishedRequestWriter("initialScores");
+      Global.CloudStorage.PhaseFinishedToCoordinator(0, msg);
+    }    
 
 
     public override void PrepareAuthorityUpdateHandler() {

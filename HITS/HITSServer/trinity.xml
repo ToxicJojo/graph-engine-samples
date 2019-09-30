@@ -1,6 +1,0 @@
-<Trinity ConfigVersion="2.0">
-  <Cluster>
-      <Server Endpoint="localhost:8133" />
-      <Proxy Endpoint="localhost:8132" />
-  </Cluster>
-</Trinity>

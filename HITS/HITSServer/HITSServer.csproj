@@ -26,7 +26,8 @@
     <!-- Generate code from the .tsl files -->
     <TslCodegen Include="**/*.tsl" />
     <!-- Copy the configuration file to the output dir so GraphEngine can read it -->
-    <Content Include="trinity.xml" CopyToOutputDirectory="Always" />
+    <Content Include="trinity0.xml" CopyToOutputDirectory="Always" />
+    <Content Include="trinity1.xml" CopyToOutputDirectory="Always" />
   </ItemGroup>
 
 </Project>

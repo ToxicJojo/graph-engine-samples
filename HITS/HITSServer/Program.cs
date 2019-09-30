@@ -13,20 +13,19 @@ namespace HITSServer
         static void Main(string[] args)
         {
           // Trinity doesn't load the config file correctly if we don't tell it to
-          TrinityConfig.LoadConfig();
-          TrinityConfig.CurrentRunningMode = RunningMode.Server;
+          TrinityConfig.LoadConfig("trinity" + args[0] + ".xml");
 
           HITSServerImpl server = new HITSServerImpl();
           server.Start();
-
-          if (loadData)  {
+          
+          
+          if (loadData && Global.MyPartitionId == 0)  {
             Console.WriteLine("Starting to load data");
 
             using (var reader = new StreamReader("Model_Journals_Fields.txt")) {
               string line;
               string[] fields;
               long currentNode = -1;
-              //List<long> references = new List<long>();
               HashSet<long> references = new HashSet<long>();
 
               while((line = reader.ReadLine()) != null) {
@@ -40,13 +39,7 @@ namespace HITSServer
                     references.Add(to);
                     currentNode = from;
                   } else {
-                    if (currentNode == 2155) {
-                      Console.WriteLine("Saving Journal 2155");
-                      foreach (long reference in references) {
-                        Console.Write("{0} ", reference);
-                      }
-                    }
-                    Global.CloudStorage.SaveJournal(currentNode, References: references.ToList(), HubScore: 0, AuthorityScore: 0);
+                    Global.CloudStorage.SaveJournal(currentNode, References: references.ToList(), HubScore: 0, OldHubScore: 0, AuthorityScore: 0, OldAuthorityScore: 0);
                     references.Clear();
                     references.Add(to);
                     currentNode = from;
@@ -55,16 +48,18 @@ namespace HITSServer
                   Console.WriteLine(e.ToString());
                 }
               }
-            //Global.CloudStorage.SaveJournal(currentNode, References: references, HubScore: 0, AuthorityScore: 0);
               Global.CloudStorage.SaveStorage();
-  
               Console.WriteLine("Finished loading data");
-              }
-            } else {
-              Global.CloudStorage.LoadStorage();
             }
-            ShowJournal(2414);
+          } else if (Global.MyPartitionId == 0) {
+            Global.CloudStorage.LoadStorage();
+            Console.WriteLine("Finished loading data");
+          }
+
+
             Console.ReadLine();
+
+            server.Stop();
         }
 
         private static void ShowJournal(long id) {

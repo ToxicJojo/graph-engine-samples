@@ -3,7 +3,9 @@
     <!-- Add any configuration the client might need -->
   </Local>
     <Cluster>
-        <Server Endpoint="localhost:8133" />
-        <Proxy Endpoint="localhost:8132" />
+        <Proxy Endpoint="node51:8133" />
+        <Server Endpoint="node52:8133" />
+        <Server Endpoint="node59:8133" />
+        <Server Endpoint="node60:8133" />
     </Cluster>
 </Trinity>

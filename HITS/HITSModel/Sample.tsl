@@ -5,7 +5,9 @@
 cell Journal {
   List<long> References;
   double HubScore;
+  double OldHubScore;
   double AuthorityScore;
+  double OldAuthorityScore;
 }
 
 
@@ -161,6 +163,23 @@ server HITSServer {
 
   // Asyn Methods
   protocol SetInitialScoresAsyn;
+
+  // Authority
+  protocol PrepareAuthorityUpdateAsyn;
+  protocol StartAuthorityUpdateAsyn;
+  protocol AuthorityUpdateAsyn;
+  protocol AuthorityUpdateAnswer;
+  protocol AuthoritySumAsyn;
+  protocol AuthorityNormalizationAsyn;
+
+
+  // Hub
+  protocol PrepareHubUpdateAsyn;
+  protocol StartHubUpdateAsyn;
+  protocol HubUpdateAsyn;
+  protocol HubUpdateAnswer;
+  protocol HubSumAsyn;
+  protocol HubNormalizationAsyn;
 }
 
 
@@ -176,8 +195,102 @@ protocol SetInitialScoresAsyn {
   Response: void;
 }
 
+
+protocol PrepareAuthorityUpdateAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+protocol StartAuthorityUpdateAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+
+struct AuthorityUpdateRequestAsyn {
+  double AuthorityScore;
+  long Target; 
+  int From;
+}
+
+protocol AuthorityUpdateAsyn {
+  Type: Asyn;
+  Request: AuthorityUpdateRequestAsyn;
+  Response: void;
+} 
+
+protocol AuthorityUpdateAnswer {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+protocol AuthoritySumAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+protocol AuthorityNormalizationAsyn {
+  Type: Asyn;
+  Request: AuthorityNormalizationRequest;
+  Response: void;
+}
+
+
+protocol PrepareHubUpdateAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+protocol StartHubUpdateAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+
+struct HubUpdateRequestAsyn {
+  double HubScore;
+  long Target; 
+  int From;
+}
+
+protocol HubUpdateAsyn {
+  Type: Asyn;
+  Request: HubUpdateRequestAsyn;
+  Response: void;
+} 
+
+protocol HubUpdateAnswer {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+
+
+
+
+
+protocol HubSumAsyn {
+  Type: Asyn;
+  Request: void;
+  Response: void;
+}
+
+protocol HubNormalizationAsyn {
+  Type: Asyn;
+  Request: HubNormalizationRequest;
+  Response: void;
+}
+
 struct PhaseFinishedRequest {
   string Phase;
+  double Result;
 }
 
 protocol PhaseFinished {

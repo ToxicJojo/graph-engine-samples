@@ -11,13 +11,15 @@ namespace HITSClient
         {
           // Trinity doesn't load the config file correctly if we don't tell it to.
           TrinityConfig.LoadConfig();
-          TrinityConfig.CurrentRunningMode = RunningMode.Proxy;
+          //TrinityConfig.CurrentRunningMode = RunningMode.Proxy;
           //TrinityConfig.CurrentRunningMode = RunningMode.Client;
 
           CoordinatorImpl coordinator = new CoordinatorImpl();
           coordinator.Start();
 
-          coordinator.RunHITSHandler();
+          Coordinator.MessagePassingExtension.RunHITS(Global.CloudStorage.ProxyList[0]);
+
+          //coordinator.RunHITSHandler();
 
           /*
           ulong cellCount = GetCellCount();

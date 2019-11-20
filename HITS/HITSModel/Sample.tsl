@@ -290,7 +290,7 @@ protocol HubNormalizationAsyn {
 
 struct PhaseFinishedRequest {
   string Phase;
-  double Result;
+  double Result; // Optional
 }
 
 protocol PhaseFinished {

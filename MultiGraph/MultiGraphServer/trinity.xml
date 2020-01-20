@@ -1,0 +1,6 @@
+<Trinity ConfigVersion="2.0">
+  <Cluster>
+      <Server Endpoint="node51:8133" />
+      <Server Endpoint="node52:8133" />
+  </Cluster>
+</Trinity>

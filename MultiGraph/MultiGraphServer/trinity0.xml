@@ -1,0 +1,10 @@
+<Trinity ConfigVersion="2.0">
+  <Local>
+    <Logging LocalToFile="FALSE" LogDirectory="/home/thiel/ge-logs/server0"/>
+    <Storage StorageRoot="/home/thiel/ge-storage/server0"/>
+  </Local>
+  <Cluster>
+      <Server Endpoint="node51:8133" />
+      <Server Endpoint="node52:8133" />
+  </Cluster>
+</Trinity>

@@ -1,0 +1,8 @@
+<Trinity ConfigVersion="2.0">
+  <Local>
+    <!-- Add any configuration the client might need -->
+  </Local>
+    <Cluster>
+        <Server Endpoint="localhost:8133" />
+    </Cluster>
+</Trinity>

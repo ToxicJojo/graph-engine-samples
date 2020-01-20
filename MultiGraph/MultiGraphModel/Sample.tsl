@@ -1,0 +1,47 @@
+// A sample TSL file
+// All files in the Model folder will be copied to the Client/Server on build. This way we can mantain one place
+// to manage all TSL definitions
+
+
+struct Edge {
+  long StartId;
+  int StartLayer;
+  long DestinationId;
+  int DestinationLayer;
+  float Weight;
+}
+
+struct NodeData {
+  long NodeId;
+  string Name;
+  int Layer;
+  List<Edge> Edges;
+}
+
+cell struct Node {
+  string Name;
+  int Layer;
+  List<Edge> Edges;
+}
+
+
+struct AddNodesRequest {
+  List<NodeData> Nodes;
+}
+
+protocol AddNodes {
+  Type: Syn;
+  Request: AddNodesRequest;
+  Response: void;
+}
+
+protocol Ping {
+  Type: Syn;
+  Request: void;
+  Response: void;
+}
+
+server MultiGraphServer {
+  protocol AddNodes;
+  protocol Ping;
+}
